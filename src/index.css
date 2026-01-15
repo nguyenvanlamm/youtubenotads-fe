@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom Base Styles */
+body {
+  @apply bg-gray-50 text-gray-900;
+}
