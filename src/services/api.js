@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = 'https://youtubenotads-be.onrender.com/api';
 
 export const api = {
     search: async (query) => {

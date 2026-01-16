@@ -2,49 +2,44 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Eye } from 'lucide-react';
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, variant = "vertical" }) => {
     const navigate = useNavigate();
+    const isHorizontal = variant === "horizontal";
 
     return (
         <div
             onClick={() => navigate(`/watch?v=${video.id}`)}
-            className="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 p-2"
+            className={`group cursor-pointer bg-white rounded-2xl overflow-hidden transition-all duration-300 ${isHorizontal ? 'flex gap-3' : 'shadow-sm hover:shadow-xl hover:-translate-y-1 border border-gray-100 p-2'}`}
         >
-            <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden mb-3">
-                <img
-                    src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-
-                {/* Play Button Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
-                        <Play className="w-5 h-5 text-white fill-current ml-1" />
-                    </div>
+            <div className={`relative ${isHorizontal ? 'w-40 shrink-0' : 'aspect-video mb-3'} bg-gray-100 rounded-xl overflow-hidden`}>
+                <div className="aspect-video">
+                    <img
+                        src={video.thumbnail}
+                        alt={video.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                    />
                 </div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
 
                 {/* Duration Badge */}
                 {video.duration && (
-                    <div className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">
+                    <div className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] px-1 py-0.5 rounded font-bold">
                         {video.duration}
                     </div>
                 )}
             </div>
 
-            <div className="px-1">
-                <h3 className="font-bold text-gray-900 text-sm line-clamp-2 leading-snug group-hover:text-red-600 transition-colors">
+            <div className={`flex-1 ${isHorizontal ? 'py-0.5' : 'px-1'}`}>
+                <h3 className={`font-bold text-gray-900 leading-snug group-hover:text-red-600 transition-colors line-clamp-2 ${isHorizontal ? 'text-xs mb-1' : 'text-sm'}`}>
                     {video.title}
                 </h3>
-                <p className="text-xs text-gray-500 mt-2 font-medium">{video.channel}</p>
+                <p className={`text-gray-500 font-medium ${isHorizontal ? 'text-[10px]' : 'text-xs mt-2'}`}>{video.channel}</p>
 
                 {(video.views || video.uploaded) && (
-                    <div className="flex items-center gap-2 text-[10px] text-gray-400 mt-1">
+                    <div className={`flex items-center gap-2 text-gray-400 ${isHorizontal ? 'text-[10px] mt-0.5' : 'text-[10px] mt-1'}`}>
                         {video.views && (
                             <span className="flex items-center gap-1">
-                                <Eye className="w-3 h-3" />
                                 {video.views}
                             </span>
                         )}

@@ -6,7 +6,8 @@ const Layout = () => {
     const location = useLocation();
     const isHomePage = location.pathname === '/';
     const isSearchPage = location.pathname === '/search';
-    const hideSearch = isHomePage || isSearchPage;
+    const isWatchPage = location.pathname === '/watch';
+    const hideSearch = isHomePage || isSearchPage || isWatchPage;
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
@@ -30,7 +31,7 @@ const Layout = () => {
 
             {/* Main Content */}
             <main className="flex-1 mt-16 p-4 md:p-6 overflow-y-auto">
-                <div className="max-w-7xl mx-auto w-full">
+                <div className={`${isWatchPage ? 'max-w-[1800px]' : 'max-w-7xl'} mx-auto w-full`}>
                     <Outlet />
                 </div>
             </main>
