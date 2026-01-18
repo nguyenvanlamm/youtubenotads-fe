@@ -30,22 +30,36 @@ const SearchBar = ({ initialValue = '', placeholder = "Search or paste YouTube U
 
     return (
         <form onSubmit={handleSearch} className={`relative group ${className}`}>
-            {!isCompact && <div className="absolute inset-0 bg-red-200 blur-xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full"></div>}
-            <div className={`relative flex items-center bg-white shadow-xl rounded-full border border-gray-100 p-1.5 focus-within:ring-4 focus-within:ring-red-50 transition-shadow ${isCompact ? 'shadow-sm py-1' : 'p-2'}`}>
-                <Search className={`${isCompact ? 'ml-3 w-4 h-4' : 'ml-4 w-6 h-6'} text-gray-400`} />
-                <input
-                    type="text"
-                    placeholder={placeholder}
-                    className={`flex-1 ml-3 md:ml-4 outline-none bg-transparent text-gray-800 placeholder:text-gray-300 ${isCompact ? 'text-sm h-7' : 'text-lg h-10'}`}
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-                />
-                <button
-                    type="submit"
-                    className={`${isCompact ? 'px-4 py-1.5 text-sm' : 'px-8 py-3'} bg-gray-900 text-white rounded-full font-medium hover:bg-black transition-transform active:scale-95`}
-                >
-                    {isCompact ? 'Search' : 'Watch'}
-                </button>
+            {!isCompact && <div className="absolute inset-0 bg-red-200 blur-xl opacity-20 group-hover:opacity-40 transition-opacity rounded-3xl md:rounded-full pointer-events-none"></div>}
+
+            <div className={`flex ${isCompact ? 'flex-row items-center' : 'flex-col md:flex-row items-stretch md:items-center'} gap-3 relative`}>
+                <div className={`relative flex-1 flex items-center bg-white shadow-xl rounded-full border border-gray-100 p-1.5 focus-within:ring-4 focus-within:ring-red-50 transition-shadow ${isCompact ? 'shadow-sm py-1' : 'p-2'}`}>
+                    <Search className={`${isCompact ? 'ml-3 w-4 h-4' : 'ml-4 w-6 h-6'} text-gray-400`} />
+                    <input
+                        type="text"
+                        placeholder={placeholder}
+                        className={`flex-1 ml-3 md:ml-4 outline-none bg-transparent text-gray-800 placeholder:text-gray-300 ${isCompact ? 'text-sm h-7' : 'text-lg h-10'}`}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                    />
+                    {isCompact && (
+                        <button
+                            type="submit"
+                            className="px-4 py-1.5 text-sm bg-gray-900 text-white rounded-full font-medium hover:bg-black transition-transform active:scale-95 shrink-0"
+                        >
+                            Search
+                        </button>
+                    )}
+                </div>
+
+                {!isCompact && (
+                    <button
+                        type="submit"
+                        className="px-8 py-4 md:py-3 bg-gray-900 text-white rounded-2xl md:rounded-full font-bold text-lg hover:bg-black transition-all active:scale-95 shadow-lg md:shadow-none hover:shadow-xl md:hover:shadow-none shrink-0"
+                    >
+                        Watch Now
+                    </button>
+                )}
             </div>
         </form>
     );
